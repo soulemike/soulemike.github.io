@@ -58,6 +58,16 @@ cp "$env:ProgramData\ssh\sshd_config" "$env:ProgramData\ssh\sshd_config.old"
 (gc "$env:ProgramData\ssh\sshd_config") -replace "#PasswordAuthentication yes", "PasswordAuthentication yes" | sc $env:ProgramData\ssh\sshd_config
 Restart-Service sshd
 ```
+### Configure Kerberos Single Sign-On Authentication
+
+Another awesome capability is support for the GSSAPI libraries for Kerberos Single Sign-On (SSO) authentication. This is an optional capability but can provide a much cleaner access experience.
+
+> Windows to Windows works smoothly, implementations with Linux SSH servers add more complexity but should still be viable.
+
+```powershell
+(gc "$env:ProgramData\ssh\sshd_config") -replace "#GSSAPIAuthentication no", "GSSAPIAuthentication yes" | sc $env:ProgramData\ssh\sshd_config
+Restart-Service sshd
+```
 
 ## Connecting to Your Server
 
@@ -84,6 +94,22 @@ With the commands below you use the `gc` alias to get the contents of the config
 (gc "$env:ProgramData\ssh\sshd_config") -replace "# override default of no subsystems", "$&`nSubsystem powershell c:/progra~1/powershell/7/pwsh.exe -sshs -nologo -noprofile" | sc $env:ProgramData\ssh\sshd_config
 Restart-Service sshd
 ```
+
+### Using Enter-PSSession
+
+Once you configure your server for the subsystem and authentication methods you can begin using `Enter-PSSession`.
+
+If you want to use the Kerberos SSO functionality with GSSAPI, then you need to specify the client options when connecting. A simple method to accomplish this is shown below.
+
+```powershell
+$options = @{
+  GSSAPIDelegateCredentials = "yes"
+  GSSAPIAuthentication = "yes"
+}
+Enter-PSSession -HostName <FQDN> -Options $options
+```
+
+> [Resource-Based Constrained Delegation](https://gist.github.com/Snozzberries/74d24e9eb3d0dc9b9ecb56030275a871#kerberos-double-hop) is also supported to utilize Kerberos S4U for the double hop scenario support.
 
 ## Putting It All Together
 
@@ -115,6 +141,7 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "c:/pr
 cp "$env:ProgramData\ssh\sshd_config" "$env:ProgramData\ssh\sshd_config.old"
 (gc "$env:ProgramData\ssh\sshd_config") -replace "# override default of no subsystems", "$&`nSubsystem powershell c:/progra~1/powershell/7/pwsh.exe -sshs -nologo -noprofile" | sc $env:ProgramData\ssh\sshd_config
 (gc "$env:ProgramData\ssh\sshd_config") -replace "#PasswordAuthentication yes", "PasswordAuthentication yes" | sc $env:ProgramData\ssh\sshd_config
+(gc "$env:ProgramData\ssh\sshd_config") -replace "#GSSAPIAuthentication no", "GSSAPIAuthentication yes" | sc $env:ProgramData\ssh\sshd_config
 Restart-Service sshd
 </powershell>
 ```
@@ -127,3 +154,4 @@ With this you have just scratched the surface of using PowerShell Remoting. Here
 * Although password based authentication is easy, using [certificate based authentication is preferable and supported](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement).
 * This is a great option if you want simple and quick, but as you begin to need more complex identity management integrations [WinRM can become more favorable](https://learn.microsoft.com/en-us/powershell/scripting/learn/remoting/wsman-remoting-in-powershell-core).
 * Jordan Borean has delved deep on these topics and shares many great insights with you on [his blog](https://www.bloggingforlogging.com/).
+* [Resource-Based Constrained Delegation](https://gist.github.com/Snozzberries/74d24e9eb3d0dc9b9ecb56030275a871#kerberos-double-hop) is also supported to utilize Kerberos S4U for the double hop scenario support.
