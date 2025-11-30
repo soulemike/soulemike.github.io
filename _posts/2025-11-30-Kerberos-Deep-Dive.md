@@ -103,51 +103,51 @@ It really depends on how you access the service though. Since we are using web p
 
 Why does this work? The Windows Internet Properties controls WIA's credential passthrough.
 
-![Internet Properties](../assets/kerberos-deep-dive/securitySettings.png)
+![Internet Properties](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/securitySettings.png)
 
 Any of these will allow WIA SSO (i.e., passthrough) by default.
 
-![Local intranet](../assets/kerberos-deep-dive/sites.png)
+![Local intranet](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/sites.png)
 
 You can add one of the other examples, such as http://127.0.0.1/ to the Local intranet zone sites.
 
 You can also disable this passthrough to see localhost fallback to NTLM. Because **Kerberos NEEDS DNS**.
 
-![Localhost NTLM demonstration](../assets/kerberos-deep-dive/localhostNtlm-1.png)
+![Localhost NTLM demonstration](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/localhostNtlm-1.png)
 
 If you complete the credential prompt or allow the passthrough to work you should see the following:
 
 Localhost will show *Negotiate (Session Based)*
 
-![Localhost demonstration](../assets/kerberos-deep-dive/localhostSession-1.png)
+![Localhost demonstration](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/localhostSession-1.png)
 
 > Session Based means that an authentication already occurred and was not necessary for the current load. For Localhost it will always be session based unless you disable passthrough authentication. To clear sessions, you can restart your browser or the IIS Server. You can disable sessions, https://techcommunity.microsoft.com/blog/iis-support-blog/request-based-versus-session-based-kerberos-authentication-or-the-authpersistnon/916043
 
 Short DNS and FQDN will show *Negotiate (KERBEROS)*
 
-![Short DNS demonstration](../assets/kerberos-deep-dive/shortDnsKerb-1.png)
+![Short DNS demonstration](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/shortDnsKerb-1.png)
 
 Either IPv6 or IPv4 will show *Negotiate (NTLM - fallback)*
 
-![IP Address demonstration](../assets/kerberos-deep-dive/ipNtlm-1.png)
+![IP Address demonstration](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/ipNtlm-1.png)
 
 A good reminder, **Kerberos requires DNS**.
 
 If we put a CNAME record in front of Web2 Kerberos works fine.
 
-![Using a CNAME](../assets/kerberos-deep-dive/cname-1.png)
+![Using a CNAME](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/cname-1.png)
 
 But if we use an A record authentication is not successful, because **Kerberos NEEDS DNS**.
 
-![Using an A record](../assets/kerberos-deep-dive/a-1.png)
+![Using an A record](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/a-1.png)
 
 If we add an SPN for our new A record then Kerberos can succeed.
 
-![Adding the SPN](../assets/kerberos-deep-dive/spn-1.png)
+![Adding the SPN](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/spn-1.png)
 
 Now Kerberos is successful for our new A record.
 
-![Using a functioning A record](../assets/kerberos-deep-dive/a-2.png)
+![Using a functioning A record](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/a-2.png)
 
 > What does the HOST portion of an SPN entail... Why should you use that instead of a specific service name...
 > 
@@ -174,17 +174,17 @@ Here are some example log events:
 
 A successful Kerberos authentication event on the DC.
 
-![Kerberos Event Log](../assets/kerberos-deep-dive/kerbEvent-1.png)
+![Kerberos Event Log](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/kerbEvent-1.png)
 
 A successful NTLM authentication event on the DC.
 
-![NTLM Event Log](../assets/kerberos-deep-dive/ntlmEvent-1.png)
+![NTLM Event Log](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/ntlmEvent-1.png)
 
 ### Between Servers
 
 You can use the scrappertest.aspx page to perform a request from web1 to web2.
 
-![Web1 to Web2](../assets/kerberos-deep-dive/scrape-1.png)
+![Web1 to Web2](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/scrape-1.png)
 
 But Web2 says that the Web1 computer account is what logged in!
 
@@ -198,19 +198,19 @@ As we established Web2 Kerberos can be successful with credentials presented to 
 
 Lets change our AppPool identities. Just using a user account to start:
 
-![Setting DefaultAppPool to use web1u](../assets/kerberos-deep-dive/appPool-1.png)
+![Setting DefaultAppPool to use web1u](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/appPool-1.png)
 
 Now Web1 is presenting the web1u credentials to web2.
 
-![Web1 to Web2 as Web1u](../assets/kerberos-deep-dive/scrape-2.png)
+![Web1 to Web2 as Web1u](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/scrape-2.png)
 
 But using a user object as a service account will lead to headaches. Lets use that fancy gMSA we have.
 
-![AppPool as gMSA](../assets/kerberos-deep-dive/gmsa.png)
+![AppPool as gMSA](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/gmsa.png)
 
 Now Web1 is presenting the web1gmsa credentials to web2. But this still isn't delegation...
 
-![Web1 to Web2 as Web1gmsa](../assets/kerberos-deep-dive/scrape-3.png)
+![Web1 to Web2 as Web1gmsa](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/scrape-3.png)
 
 ### Impersonation
 
@@ -218,23 +218,23 @@ Are we ready for delegation yet? Yes, but first...
 
 We need to enable impersonation on the server. Allowing the AppPool to run in the context of the user.
 
-![Enable ASP.NET Impersonation](../assets/kerberos-deep-dive/aspImpersonation.png)
+![Enable ASP.NET Impersonation](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/aspImpersonation.png)
 
 This should also enable impersonation on the web config as well.
 
-![Server Impersonation](../assets/kerberos-deep-dive/serverImpersonation.png)
+![Server Impersonation](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/serverImpersonation.png)
 
 You may also need to disable integrated mode validation.
 
-![Disable Integrated Mode Validation](../assets/kerberos-deep-dive/validation.png)
+![Disable Integrated Mode Validation](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/validation.png)
 
 Now on Web1 we can see that our Windows identity updated.
 
-![Current User for Windows Identity](../assets/kerberos-deep-dive/winId.png)
+![Current User for Windows Identity](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/winId.png)
 
 But if we try to access Web2... We get a 401 error. This is because Web1 (inclusive of web1u, local mahcine, or web1gmsa) does not have the actual credentials, it only has the Kerberos ticket that authenticated misoule into Web1. This is a good example of the "double hop" problem. Web2 does not have the user credentials and neither does Web1. Unless the ticket issued for Web1 supports Kerberos delegation, or the frontend, Web1, can present the authentication prompt from Web2 then authentication will always fail.
 
-![401 for Double Hop Authentication](../assets/kerberos-deep-dive/doubleHop.png)
+![401 for Double Hop Authentication](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/doubleHop.png)
 
 ## Unconstrained Delegation
 
@@ -276,7 +276,7 @@ Set-ADServiceAccount @web1gmsaSplat
 
 Next our IIS server configuration, on our web1 server, needs to allow the AppPool, as our AppPool identity web1gmsa, to work with Local Security Authority (LSA) rather than the local machine. This is done by setting the IIS configuration flag `useAppPoolCredentials` to True.
 
-![IIS useAppPoolCredentials](../assets/kerberos-deep-dive/useAppPoolCreds.png)
+![IIS useAppPoolCredentials](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/useAppPoolCreds.png)
 
 ### Client
 
@@ -286,7 +286,7 @@ Next our IIS server configuration, on our web1 server, needs to allow the AppPoo
 
 To allow unconstrained delegation the client requires Credential Guard to be disabled. You can disable the feature using the registry or group policy.
 
-![Disable Credential Guard](../assets/kerberos-deep-dive/disableCredGuard.png)
+![Disable Credential Guard](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/disableCredGuard.png)
 
 Additionally, Edge will block unconstrained delegation. You can disable this feature using the registry or group policy as well. Configure this to allow your web server, web1, as part of the allow list.
 
@@ -297,17 +297,17 @@ New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge"
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "AuthNegotiateDelegateAllowlist" -Value "web1.test.com"
 ```
 
-![Edge AuthNegotiateDelegateAllowlost](../assets/kerberos-deep-dive/edgePolicy.png)
+![Edge AuthNegotiateDelegateAllowlost](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/edgePolicy.png)
 
 ### Testing
 
 Now we can validate that we can authenticate to web2 as the user:
 
-![Successful](../assets/kerberos-deep-dive/success-1.png)
+![Successful](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/success-1.png)
 
 On the client system we can also run `klist` to validate the Kerberos ticket has the `ok_as_delegate` flag:
 
-![Kerberos ticket](../assets/kerberos-deep-dive/klist-1.png)
+![Kerberos ticket](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/klist-1.png)
 
 #### Validating using Event Log
 
@@ -317,11 +317,11 @@ Logon GUID: {095862be-0a90-c4a0-030c-6dc20d048eee}
 
 ##### Event On the client
 
-![Request](../assets/kerberos-deep-dive/4648.png)
+![Request](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/4648.png)
 
 ##### Event On the domain controllers
 
-![TGS](../assets/kerberos-deep-dive/4769.png)
+![TGS](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/4769.png)
 
 #### Common Issues
 
@@ -373,27 +373,27 @@ Set-ADServiceAccount @web1gmsaSplat
 
 You will see recommendations for `Set-AdAccountControl -TrustedToAuthForDelegation $true` or to set delegation to *Use any authentication protocol*. This is not necessary for Kerberos Constrained Delegation and is **NOT** recommended unless you are working with services that cannot support Kerberos and you are performing a protocol transition to Kerberos (i.e. S4U2self). You will see when you should consider using this in a following section.
 
-![Delegation Properties Protocol Selection](../assets/kerberos-deep-dive/protocols.png)
+![Delegation Properties Protocol Selection](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/protocols.png)
 
 ### IIS Server
 
 Next our IIS server configuration, on our web1 server, needs to allow the AppPool, as our AppPool identity web1gmsa, to work with Local Security Authority (LSA) rather than the local machine. This is done by setting the IIS configuration flag `useAppPoolCredentials` to True.
 
-![IIS useAppPoolCredentials](../assets/kerberos-deep-dive/useAppPoolCreds.png)
+![IIS useAppPoolCredentials](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/useAppPoolCreds.png)
 
 ### Testing
 
 Now we can validate that we can authenticate to web2 as the user:
 
-![Success](../assets/kerberos-deep-dive/success-2.png)
+![Success](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/success-2.png)
 
 This works even though our impersonation level is impersonation:
 
-![Impersonation Only](../assets/kerberos-deep-dive/impersonation.png)
+![Impersonation Only](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/impersonation.png)
 
 On the client system we can also run `klist` to validate the Kerberos ticket works even though it does not have the `ok_as_delegate` flag:
 
-![Kerberos Ticket](../assets/kerberos-deep-dive/klist-2.png)
+![Kerberos Ticket](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/klist-2.png)
 
 ## Resource-based Constrained Delegation
 
@@ -437,21 +437,21 @@ Set-ADComputer @web2Splat
 
 Next our IIS server configuration, on our web1 server, needs to allow the AppPool, as our AppPool identity web1gmsa, to work with Local Security Authority (LSA) rather than the local machine. This is done by setting the IIS configuration flag `useAppPoolCredentials` to True.
 
-![IIS useAppPoolCredentials](../assets/kerberos-deep-dive/useAppPoolCreds.png)
+![IIS useAppPoolCredentials](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/useAppPoolCreds.png)
 
 ### Testing
 
 Now we can validate that we can authenticate to web2 as the user:
 
-![Success](../assets/kerberos-deep-dive/success-2.png)
+![Success](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/success-2.png)
 
 This works even though our impersonation level is impersonation:
 
-![Impersonation Only](../assets/kerberos-deep-dive/impersonation.png)
+![Impersonation Only](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/impersonation.png)
 
 On the client system we can also run `klist` to validate the Kerberos ticket works even though it does not have the `ok_as_delegate` flag:
 
-![Kerberos Ticket](../assets/kerberos-deep-dive/klist-2.png)
+![Kerberos Ticket](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/klist-2.png)
 
 ## When to Use TRUSTED_TO_AUTH_FOR_DELEGATION
 
@@ -503,21 +503,21 @@ Set-ADAccountControl @accountControlSplat
 
 Next our IIS server configuration, on our web1 server, needs to allow the AppPool, as our AppPool identity web1gmsa, to work with Local Security Authority (LSA) rather than the local machine. This is done by setting the IIS configuration flag `useAppPoolCredentials` to True.
 
-![IIS useAppPoolCredentials](../assets/kerberos-deep-dive/useAppPoolCreds.png)
+![IIS useAppPoolCredentials](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/useAppPoolCreds.png)
 
 We also need to remove the Negotiate Provider to ensure we are forcing NTLM authentication to web1.
 
-![NTLM Only](../assets/kerberos-deep-dive/ntlmProvider.png)
+![NTLM Only](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/ntlmProvider.png)
 
 #### Testing
 
 Now when we log in to Web1 we can observer that we are authenticating using NTLM.
 
-![NTLM Authentication](../assets/kerberos-deep-dive/ntlmAuth.png)
+![NTLM Authentication](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/ntlmAuth.png)
 
 But when we then access web2 from web1, we can see that we authenticate to web2 using Kerberos.
 
-![S4U2Self Success](../assets/kerberos-deep-dive/success-3.png)
+![S4U2Self Success](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/success-3.png)
 
 ### For Resource-based Constrained Delegation
 
@@ -529,11 +529,11 @@ Follow the same steps as in [Resource-based Constrained Delegation](#Resource-ba
 
 Within the Windows Local Security Policy add the well-known object *Service asserted identity* to the *Deny access to this computer from the network* policy.
 
-![Deny S4U2Self logons](../assets/kerberos-deep-dive/denyAccess.png)
+![Deny S4U2Self logons](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/denyAccess.png)
 
 Now when you proceed to test with protocol transition from NTLM authentication to web1 using Kerberos to web2, web2 will block the authentication.
 
-![fail](../assets/kerberos-deep-dive/fail.png)
+![fail](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/kerberos-deep-dive/fail.png)
 
 ## References
 
