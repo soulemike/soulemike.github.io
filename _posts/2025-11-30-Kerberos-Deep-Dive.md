@@ -25,7 +25,7 @@ You can use the names or IP Addresses of your preference, but these are the refe
 
 ### AD Objects
 
-- misoule (Domain Admin user)
+- misoule (Domain user)
 - web1u (Example AppPool Identity)
 - web1gmsa
   - Group
