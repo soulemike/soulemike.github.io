@@ -4,7 +4,7 @@
 
 If you are anything like I am, everything in this post will be things you have done to solve specific problems, researched to understand the protocol standards definitions better, or reviewed content because of the security misconfiguration concerns, but there is so much noise around these topics that this will be your one reference for the different scenarios and outcomes regarding Kerberos delegation as an administrator. If you are looking for how the protocol works, the references provide details on that, to understand configuring and using the protocol read on.
 
-> Unless otherwise stated, any changes will be reversed after validation steps.
+> Unless otherwise stated, assume any changes will be reversed after validation steps for the section.
 
 ## Prereqs
 
