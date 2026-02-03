@@ -11,6 +11,7 @@ Using Doug Finke's PSAI module and Przemyslaw Klys PSParseHTML module, this was 
 1. Go to https://www.linkedin.com/in/<username>/recent-activity/all/
 2. Scroll as far back as you desire
 3. Run this in console, copy object, and clean up to URL format
+
 ```javascript
 // Select the parent UL element
 const container = document.querySelector('#profile-content > div > div.scaffold-layout.scaffold-layout--breakpoint-xl.scaffold-layout--sidebar-main-aside.scaffold-layout--reflow > div > div > main > div > section > div.pv0.ph5 > div > div > div.scaffold-finite-scroll__content > ul');
@@ -32,13 +33,17 @@ if (container) {
   console.warn('Container not found.');
 }
 ```
+
 4. Copy that object out and clean it up as an array
+
 ```powershell
 $activities = @"
     https://www.linkedin.com/feed/update/urn:li:activity:000000000000000000000
 "@
 ```
+
 5. Make sure you have PSAI and PSParseHtml installed, and you have a local vault secret for your Azure OpenAI instance then run the below
+
 ```powershell
 $activities = $activities.Split("`n")
 
@@ -89,7 +94,9 @@ foreach($activity in $activities){
     $posts += $post
 }
 ```
+
 6. Now I keep all this activity in a SharePoint Online List for easy integration and analysis later, be sure to update the SPO Instance URL, Site Name, and List GUID below
+
 ```powershell
 $site = Invoke-MgGraphRequest -Uri "v1.0/sites/<SpoInstanceUrl>:/sites/<SiteName>"
 $list = Invoke-MgGraphRequest -Uri "v1.0/sites/$($site.id)/lists/<ListGuid>"
@@ -113,6 +120,7 @@ foreach($post in $posts|?{$_.Summary -ne ""}){
     Invoke-MgGraphRequest -Uri "v1.0/sites/$($site.id)/lists/$($list.id)/items" -Method POST -Body $item|ConvertTo-Json
 }
 ```
+
 7. Filter your list using the To Do Partner value or alternate columns and update as necessary
 
 Example of the results:
