@@ -1,4 +1,4 @@
-## Overview of Defender for Servers Capabilities
+# Overview of Defender for Servers Capabilities
 
 I have been working on some content for a new presentation that is coming up. One of the components is around Defender for Servers, which is a fairly nuanced topic and gets confusing, especially when clients are looking to fully embrace Microsoft's threat protection model.
 
