@@ -1,7 +1,7 @@
 # PowerShell and GRC: Moving from “Disable It” to “Manage It”
 
 For years, many security conversations have started with the idea that hackers use PowerShell so it should be disabled. In reality, PowerShell is an essential operations tool. The real task is to manage risk so that organizations can use PowerShell safely while preserving the automation and efficiency that teams depend on.
-
+ 
 ## The Myth: “Hackers Use PowerShell, Disable It”
 It is true that attackers abuse PowerShell. Disabling it entirely harms operational capability and often encourages workarounds that are even riskier. Mature organizations balance risks with benefits.
 
