@@ -10,7 +10,7 @@ That is the premise behind the hybrid identity maturity model I presented at HIP
 
 > Slide references below use the visible conference deck numbering.
 
-![Slide 2: A Hybrid Identity Maturity Model that Actually Delivers Security Outcomes](../assets/hybrid-identity-maturity/slide-02-title.png)
+![Slide 2: A Hybrid Identity Maturity Model that Actually Delivers Security Outcomes](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/hybrid-identity-maturity/slide-02-title.png)
 
 *Slide 2: The presentation starts with a simple requirement for the model: maturity has to deliver a security outcome.*
 
@@ -22,7 +22,7 @@ The problem appears when those measures become the definition of success.
 
 Slide 11 uses three familiar examples: endpoint agent coverage, MFA enablement, and new SIEM log sources. Each can represent meaningful progress. None independently answers whether exposure to harm is lower. A control can be deployed broadly and still be weak, inconsistently enforced, poorly governed, or disconnected from the assets that matter most.
 
-![Slide 11: The Wrong Question](../assets/hybrid-identity-maturity/slide-11-wrong-question.png)
+![Slide 11: The Wrong Question](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/hybrid-identity-maturity/slide-11-wrong-question.png)
 
 *Slide 11: Tool deployment and coverage are inputs. The security question is whether the resulting exposure changed.*
 
@@ -34,7 +34,7 @@ Identity risk is already a business issue. Slide 18 frames common corporate risk
 
 Shrink standing privilege. Strengthen authentication and lifecycle governance. Govern human and machine identities. Improve visibility, response, and recovery. Measure maturity by risks actively controlled.
 
-![Slide 18: It’s a Named Risk in the 10-K](../assets/hybrid-identity-maturity/slide-18-named-risk.png)
+![Slide 18: It’s a Named Risk in the 10-K](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/hybrid-identity-maturity/slide-18-named-risk.png)
 
 *Slide 18: The model connects enterprise risk statements to identity controls that can materially reduce exposure.*
 
@@ -48,7 +48,7 @@ A service account survives because nobody is sure what depends on it. An applica
 
 The result is accumulated dependency. Slide 27 describes this with a useful analogy: **every workaround is a loan, and the interest comes due at hardening time.**
 
-![Slide 27: The Hybrid Reality](../assets/hybrid-identity-maturity/slide-27-hybrid-reality.png)
+![Slide 27: The Hybrid Reality](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/hybrid-identity-maturity/slide-27-hybrid-reality.png)
 
 *Slide 27: Long-lived workarounds create dependencies across identity types, protocols, authentication strengths, and organizational ownership.*
 
@@ -56,7 +56,7 @@ This matters because the weakest part of the environment establishes the practic
 
 Slide 28 gives the model a concrete definition of risk: a threat meets a weakness and creates exposure. Attackers are the threat. Standing access, weak authentication, and accounts without clear ownership are weaknesses. Exposure is what an attacker can reach, and for how long, when the two meet.
 
-![Slide 28: What We Mean by Risk](../assets/hybrid-identity-maturity/slide-28-risk.png)
+![Slide 28: What We Mean by Risk](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/hybrid-identity-maturity/slide-28-risk.png)
 
 *Slide 28: The model focuses measurement on weaknesses because that is the part of the risk equation the identity program can directly change.*
 
@@ -68,7 +68,7 @@ The test is simple: **what weakness was removed?**
 
 Slide 31 organizes the progression into Crawl, Walk, and Run. Crawl is about seeing and controlling the environment. Walk modernizes and standardizes it. Run automates proven controls and reduces risk at scale.
 
-![Slide 31: The Test of Maturity](../assets/hybrid-identity-maturity/slide-31-test-of-maturity.png)
+![Slide 31: The Test of Maturity](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/hybrid-identity-maturity/slide-31-test-of-maturity.png)
 
 *Slide 31: Crawl, Walk, and Run represent increasing ability to remove weaknesses, not increasingly impressive labels.*
 
@@ -78,7 +78,7 @@ This sequencing matters. Automation applied to an environment that is still poor
 
 The model groups the identity landscape into four practices: Lifecycle Management, Access Management, Entitlement Management, and Threat Management.
 
-![Slide 36: Four Practices](../assets/hybrid-identity-maturity/slide-36-four-practices.png)
+![Slide 36: Four Practices](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/hybrid-identity-maturity/slide-36-four-practices.png)
 
 *Slide 36: The four practices cover the identity lifecycle, authentication, entitlement, and identity-aware detection and recovery.*
 
@@ -118,7 +118,7 @@ The model's roadmap uses three stages: visibility, intelligence, and action.
 
 Visibility answers who has access, to what, and how they got it. Intelligence standardizes the data so risk can be compared and ranked against business impact. Action removes the highest-risk standing access and automates decisions that have already been proven manually.
 
-![Slide 69: Sequence for Risk Reduction](../assets/hybrid-identity-maturity/slide-69-sequence.png)
+![Slide 69: Sequence for Risk Reduction](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/hybrid-identity-maturity/slide-69-sequence.png)
 
 *Slide 69: Visibility earns intelligence. Intelligence earns action. Skipping a stage risks automating a blind spot.*
 
@@ -132,7 +132,7 @@ The failures often appear at the handoffs.
 
 Slide 70 calls out several examples: policy authority that is never enforced in operations, device signals that one team produces and another trusts without validation, access granted without understanding the value of the data behind it, and classification that exists on paper but never reaches an access decision.
 
-![Slide 70: Mind the Silo Seams](../assets/hybrid-identity-maturity/slide-70-silo-seams.png)
+![Slide 70: Mind the Silo Seams](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/hybrid-identity-maturity/slide-70-silo-seams.png)
 
 *Slide 70: Identity becomes the shared surface across GRC, operations, security, and application or data ownership. Unowned seams become control gaps.*
 
@@ -142,7 +142,7 @@ This is an organizational design problem as much as a technical one. Mature iden
 
 Slide 71 consolidates the model into an outcome-driven roadmap across Crawl, Walk, and Run. The point is not to push every capability to Run at the same time. The roadmap helps identify the next capability that removes a meaningful weakness.
 
-![Slide 71: Your Outcome-Driven Roadmap](../assets/hybrid-identity-maturity/slide-71-roadmap.png)
+![Slide 71: Your Outcome-Driven Roadmap](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/hybrid-identity-maturity/slide-71-roadmap.png)
 
 *Slide 71: The maturity model becomes a roadmap when each capability is tied to an observable security outcome.*
 
@@ -155,7 +155,7 @@ Slide 72 turns that roadmap into four immediate actions:
 | Entitlement | List the accounts that could take over what you value. | Make that access time-bound. |
 | Threat | Run one identity recovery drill end to end. | Time it, then shorten it. |
 
-![Slide 72: What to Do Next](../assets/hybrid-identity-maturity/slide-72-next.png)
+![Slide 72: What to Do Next](https://raw.githubusercontent.com/soulemike/soulemike.github.io/refs/heads/main/assets/hybrid-identity-maturity/slide-72-next.png)
 
 *Slide 72: Pick one move per practice and create momentum from Crawl to Walk to Run.*
 
